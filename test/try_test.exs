@@ -31,6 +31,7 @@ defmodule TryTest do
         if x > 20, do: return(:very_high)
         return(:high)
       end
+
       :low
     end
 
@@ -89,6 +90,7 @@ defmodule TryTest do
     def nested_try_blocks(result) do
       try do
         inner = unwrap(result)
+
         try do
           if inner == 0, do: raise("nested boom")
           inner * 2
@@ -175,10 +177,13 @@ defmodule TryTest do
             if x > 30, do: return(:very_deep)
             return(:deep)
           end
+
           return(:medium)
         end
+
         return(:shallow)
       end
+
       :default
     end
 
@@ -211,6 +216,7 @@ defmodule TryTest do
       Enum.each(list, fn x ->
         if x == 5, do: return(:found_five)
       end)
+
       :not_found
     end
   end

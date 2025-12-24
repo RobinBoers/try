@@ -1,5 +1,5 @@
 defmodule Try do
-   defmacro __using__(_) do
+  defmacro __using__(_) do
     quote do
       import Try, only: [def: 2, unwrap: 1, return: 1]
       import Kernel, except: [def: 2]
@@ -7,10 +7,12 @@ defmodule Try do
   end
 
   defmodule Value do
+    @moduledoc false
     defstruct [:data]
   end
 
   defmodule Exception do
+    @moduledoc false
     defexception [:reason]
 
     @impl true
@@ -22,11 +24,13 @@ defmodule Try do
     end
   end
 
+  @doc false
   defmacro def(call, body) do
     wrapped = Keyword.update!(body, :do, &wrap/1)
     quote do: Kernel.def(unquote(call), unquote(wrapped))
   end
 
+  @doc false
   defmacro defp(call, body) do
     wrapped = Keyword.update!(body, :do, &wrap/1)
     quote do: Kernel.defp(unquote(call), unquote(wrapped))
@@ -40,10 +44,10 @@ defmodule Try do
         unquote(block)
       rescue
         e in Try.Exception -> {:error, e.reason}
-        e -> Kernel.reraise e, __STACKTRACE__
+        e -> Kernel.reraise(e, __STACKTRACE__)
       catch
         %Try.Value{data: data} -> data
-        other -> Kernel.throw other
+        other -> Kernel.throw(other)
       end
     end
   end
