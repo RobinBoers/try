@@ -1,4 +1,12 @@
 defmodule Try do
+  @readme Path.expand("../README.md", __DIR__)
+  @external_resource @readme
+  @moduledoc @readme
+             |> File.read!()
+             |> String.split("<!-- DOCS HERE -->")
+             |> List.last()
+             |> String.trim()
+
   defmacro __using__(_) do
     quote do
       import Try, only: [def: 2, unwrap: 1, return: 1]
