@@ -7,7 +7,7 @@ defmodule Try.MixProject do
   def project do
     [
       app: :try,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.19",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
