@@ -9,8 +9,8 @@ defmodule Try do
 
   defmacro __using__(_) do
     quote do
-      import Try, only: [def: 2, unwrap: 1, return: 1]
-      import Kernel, except: [def: 2]
+      import Try, only: [def: 2, defp: 2, unwrap: 1, return: 1]
+      import Kernel, except: [def: 2, defp: 2]
     end
   end
 
